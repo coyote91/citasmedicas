@@ -1,0 +1,103 @@
+
+#contglobal{
+
+width:1404px;
+min-height: 500px;
+height: auto;
+background-color: orange;
+
+position: relative;
+margin: 0px auto;
+
+}
+
+#continfo
+{
+  
+
+display: flex;
+flex-wrap: nowrap;
+flex-direction: row;
+align-items: center;
+justify-content: stretch;
+
+
+}
+
+
+#contizquierdo{
+
+width: 300px;
+height:400px;
+background-color: red;
+
+
+}
+
+#contderecho{
+
+width: 1101px;
+height:400px;
+background-color: green;
+
+
+
+
+}
+
+#contsemana{
+
+
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+
+}
+
+.thleft{
+
+width: 160px;
+height: auto;
+background-color: red;
+
+}
+
+.thright{
+ 
+ width: 530px;
+ background-color: cadetblue;
+
+
+}
+
+.go_prev
+{
+   width: 15px;
+   vertical-align: middle;
+   background-color: ;
+   
+}
+
+.th_week_day{
+ 
+ width: 70px;
+ border-bottom:1px solid #eee;
+ text-align: center;
+ vertical-align: top;
+ padding-left: 2px;
+ padding-right: 2px;
+}
+
+.wd_colored{
+
+ background-color: #f9f4ed;
+}
+
+.wd_white{
+ 
+     background-color: #fff;
+ 
+}
