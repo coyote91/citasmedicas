@@ -1,0 +1,38 @@
+﻿
+  url :  doctor =  schedules_management 
+
+
+configuracion de las fechas de inicio y fin  en las estaciones del año, tiempo en el que trabajara el medico.
+
+
+Estaciones del año : 
+
+Verano – otoño 
+invierno 
+invierno – primavera 
+
+
+fechas : 
+
+
+a partir de la fecha : 
+hasta la fecha : 
+
+
+
+
+    url :    doctor =  schedules_set_timeblocks
+
+ 
+ direccion :   caja de seleccion con las direcciones del doctor
+ dia de la semana :  caja de seleccion con los dias de la semana
+ tiempo desde : tres cajas de seleccion para hora, minuto,  am o pm 
+ tiempo hasta : tres cajas de seleccion para hora, minuto,  am o pm
+ duracion cita :  caja de seleccion con intervalos de tiempo.
+
+ update
+
+
+=======================================================
+
+
