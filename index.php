@@ -7,16 +7,20 @@ include'./include/direccionmedico.php';
 $doctor_speciality = isset($_POST['doctor_speciality']) ? $_POST['doctor_speciality'] : '';
 $doctor_name = isset($_POST['doctor_name']) ? $_POST['doctor_name'] : '';
 $doctor_location = isset($_POST['doctor_location']) ? $_POST['doctor_location'] : '';
+$doctor_id         = isset($_REQUEST['docid']) ? (int)$_REQUEST['docid'] : '';
 
 $parametros_de_busqueda  = array('speciality' => $doctor_speciality,
                            'name' => $doctor_name,
-                           'location' => $doctor_location
+                           'location' => $doctor_location,
+                           'doctor_id' => $doctor_id
 
                           );
 
 echo "Especialidad del doctor es ". $doctor_speciality;
 echo $doctor_name;
 echo $doctor_location;
+
+
 
 ?>
 
@@ -27,6 +31,10 @@ echo $doctor_location;
 	<title>Document</title>
 
 <link rel="stylesheet" href="./css/style.css">
+
+<script src="./js/main.js" charset="utf-8"></script>
+
+
 
 </head>
 <body>

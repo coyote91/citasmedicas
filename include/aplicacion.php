@@ -7,6 +7,8 @@ class Aplicacion
 {
   private static $params = array(
 		                                'lang' => 'en',
+                                    'lang_dir'          => 'ltr',
+                                    	'template'        	=> 'default',
 
                               	);
 

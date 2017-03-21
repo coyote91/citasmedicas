@@ -13,7 +13,7 @@ class Busquedadoctores
       $resultado = array();
 
       $total_doctores = self::consultarmedicosporparametros($parametros_de_busqueda);
-      foreach ($total_doctores[0] as $val)
+      foreach ($total_doctores[0]  as $key => $val)
       {
            $resultado[$val['doctor_id']] = array(
              'first_name'         => $val['first_name'],
@@ -108,7 +108,9 @@ class Busquedadoctores
          date_default_timezone_set("America/Bogota");
          setlocale(LC_TIME, 'spanish');
 
-         $start_day = isset($_GET['start_day']) ? $_GET['start_day'] : date('Y-m-d');
+         	$output = '';
+
+         $start_day = isset($_POST['start_day']) ? $_POST['start_day'] : date('Y-m-d');
 
           	$is_active = 'yes';
 
@@ -145,7 +147,9 @@ class Busquedadoctores
         $prev_week_day = date('Y-m-d', strtotime('-6 day', $current_day));
         $next_week_day = date('Y-m-d', strtotime('+6 day', $current_day));
 
-        //$docid_param = isset($parametros_de_busqueda['doctor_id']) ? '&docid='.(int)$parametros_de_busqueda['doctor_id'] : '';
+        $but_prev = (Aplicacion::Get('lang_dir') == 'ltr') ? 'but_prev' : 'but_next';
+        $but_next = (Aplicacion::Get('lang_dir') == 'ltr') ? 'but_next' : 'but_prev';
+        $docid_param = isset($parametros_de_busqueda['doctor_id']) ? '&docid='.(int)$parametros_de_busqueda['doctor_id'] : '';
 
          ?>
 
@@ -168,18 +172,20 @@ class Busquedadoctores
 
                  if($prev_week_day >= date('Y-m-d'))
                  {
-                  ?>
-
-                  <a href=<?php echo $_SERVER["PHP_SELF"]."?start_day=". $prev_week_day ?> > <img src='./img/but_prev_active.png'> </a>
 
 
-                  <?php
+  //echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')"> <img src="./img/but_prev_active.png"></a>';
+
+echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')">  <img src="templates/'.Aplicacion::Get('template').'/images/'.$but_prev.'_active.png"></a>';
+
+
+
                  }
                  else{
 
                  ?>
 
-                                       <img src="./img/but_prev.png" >
+                                       <img src="./templates/default/images/but_prev.png" >
 
                  <?php
                     }
@@ -224,9 +230,15 @@ class Busquedadoctores
 
              <td class="go_next">
 
-                 <a href=<?php echo $_SERVER["PHP_SELF"]."?start_day=". $next_week_day ?> > <img src='./img/but_next_active.png'> </a>
+
+<?php
+
+//echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="./img/but_next_active.png"> </a>';
+
+echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="templates/'.Aplicacion::Get('template').'/images/'.$but_next.'_active.png"> </a>';
 
 
+?>
 
              </td>
 
@@ -286,7 +298,7 @@ class Busquedadoctores
                    <tr valign="top">
                      <td colspan="3">
                        <div class="doctor_profile">
-                                          <img class="doctor_small_photo" src=./img/doctors/<?php echo $photo ?> > <br>
+                                          <img class="doctor_small_photo" src=./templates/doctors/<?php echo $photo ?> > <br>
                          <?php
 
               echo " <a  href=\" " . $_SERVER["PHP_SELF"] . "?page=doctors&docid=".(int)$key. "\"> $doc_name </a> ";
@@ -305,6 +317,8 @@ class Busquedadoctores
      </table>
 <?php
       }
+
+
 
   } //end resultados busqueda
 
