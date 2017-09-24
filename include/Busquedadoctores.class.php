@@ -103,6 +103,8 @@ class Busquedadoctores
   public static function resultadosbusqueda($resultado, $parametros_de_busqueda)
   {
 
+    define("_MORE","más");
+
                   //guia strftime   http://php.net/manual/es/function.strftime.php
 
          date_default_timezone_set("America/Bogota");
@@ -144,6 +146,22 @@ class Busquedadoctores
         $current_day = strtotime($start_day);
         $arr_dates = array();
 
+
+                       for($i=0; $i<7; $i++){
+                       $current_date = ($i == 0) ? $current_day : strtotime('+'.$i.' day', $current_day);
+
+
+                        $arr_dates[] = array(
+                                              'date'=>date('Y-m-d', $current_date),
+                                              'dia' => strftime(" %A ", $current_date),
+                                              'dia_mes_año' => strftime(" %b %d %Y ", $current_date),
+                                              'week_day_num'=>(date('w', $current_date)+1) // w	Representación numérica del día de la semana
+                                                                                           // 0 (para domingo) hasta 6 (para sábado)
+                                           );
+
+
+                       }
+
         $prev_week_day = date('Y-m-d', strtotime('-6 day', $current_day));
         $next_week_day = date('Y-m-d', strtotime('+6 day', $current_day));
 
@@ -153,7 +171,7 @@ class Busquedadoctores
 
          ?>
 
-     <table>
+     <table class="doctors_result">
 
        <tr valign="top">
          <td class="thleft">Doctores</td>
@@ -164,68 +182,54 @@ class Busquedadoctores
 
           ?>
 
-                <td class="thright">
-           <table cellspacing="0" cellpadding="0">
-             <tr>
-               <td class="go_prev">
-                 <?php
+        <td class="thright">
+                   <table cellspacing="0" cellpadding="0">
+                     <tr>
+                         <td class="go_prev">
+                               <?php
 
-                 if($prev_week_day >= date('Y-m-d'))
-                 {
-
-
-  //echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')"> <img src="./img/but_prev_active.png"></a>';
-
-echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')">  <img src="templates/'.Aplicacion::Get('template').'/images/'.$but_prev.'_active.png"></a>';
+                               if($prev_week_day >= date('Y-m-d'))
+                               {
 
 
+  echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')"> <img src="./img/but_prev_active.png"></a>';
 
-                 }
-                 else{
-
-                 ?>
-
-                                       <img src="./templates/default/images/but_prev.png" >
-
-                 <?php
-                    }
-                 ?>
-
-               </td>
+//echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$prev_week_day.'&page_number='.$current_page.$docid_param.'\')">  <img src="templates/'.Aplicacion::Get('template').'/images/'.$but_prev.'_active.png"></a>';
 
 
-               <td>
+
+                               }
+                               else{
+
+                               ?>
+
+                                                     <img src="./templates/default/images/but_prev.png" >
+
+                               <?php
+                                  }
+                               ?>
+
+                       </td>
+
+
+                       <td>
 
                <?php
 
-               for($i=0; $i<7; $i++){
-               $current_date = ($i == 0) ? $current_day : strtotime('+'.$i.' day', $current_day);
-
-
-                $arr_dates[] = array(
-
-                                      'dia' => strftime(" %A ", $current_date),
-                                      'dia_mes_año' => strftime(" %b %d %Y ", $current_date),
-                                      'week_day_num'=>(date('w', $current_date)+1) // w	Representación numérica del día de la semana
-                                                                                   // 0 (para domingo) hasta 6 (para sábado)
-                                   );
-
-
-               }
 
                $days_count = 0;
 
-               foreach ($arr_dates as $key ) {
+               foreach ($arr_dates as $dkey => $dval ) {
 
-                  echo '<td class="th_week_day'.(($days_count++ % 2 == 0) ? ' wd_colored' : ' wd_white').'">'.$key['dia'].'<br>'. $key['dia_mes_año'] .'</td>';
-                  echo $key['week_day_num'];
+                  echo '<td class="th_week_day'.(($days_count++ % 2 == 0) ? ' wd_colored' : ' wd_white').'">'.$dval['dia'].'<br>'. $dval['dia_mes_año'] .'</td>';
+                  echo $dval['week_day_num'];
 
                 }
 
                ?>
 
 
-               </td>
+                     </td>
 
 
              <td class="go_next">
@@ -233,9 +237,9 @@ echo  $output = '<a href="javascript:void(\'week|previous\');"  onclick="appForm
 
 <?php
 
-//echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="./img/but_next_active.png"> </a>';
+echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="./img/but_next_active.png"> </a>';
 
-echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="templates/'.Aplicacion::Get('template').'/images/'.$but_next.'_active.png"> </a>';
+//echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit(\'frmFindDoctors\',\'start_day='.$next_week_day.'&page_number='.$current_page.$docid_param.'\')"><img src="templates/'.Aplicacion::Get('template').'/images/'.$but_next.'_active.png"> </a>';
 
 
 ?>
@@ -252,7 +256,7 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
            }
            ?>
 
-      </tr>
+      </tr>  <!-- END PRIMERA FILA DONDE SALEN LOS 7 DIAS DE LA SEMANA  -->
 
        <?php
 
@@ -295,7 +299,7 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
                  $photo = ($val['doctor_photo_thumb'] != '') ? $val['doctor_photo_thumb'] : 'doctor_'.$val['gender'].'.png';
                  $doc_name = $val['title'].' '.$val['first_name'].' '.$val['middle_name'].' '.$val['last_name'];
               ?>
-                   <tr valign="top">
+                   <tr valign="top">   <!---  SEGUNDA FILA DONDE VAN LAS FOTOS DEL DOCTOR    --->
                      <td colspan="3">
                        <div class="doctor_profile">
                                           <img class="doctor_small_photo" src=./templates/doctors/<?php echo $photo ?> > <br>
@@ -309,6 +313,98 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
                        </div>
 
            <?php
+
+                     /// '.$doctor_def_address.'
+                       if($is_active == 'yes')
+                       {
+                             $non_empty_days = 0;
+                ?>
+                        <table cellspacing="0" cellpadding="0">
+                          <tr>
+                             <td class="go_prev"></td>
+
+                  <?php
+
+                         $days_count = 0;
+                         $first_day = '';
+
+                         foreach($arr_dates as $dkey => $dval)
+                         {
+                                 if($first_day == '')
+                                   $first_day = $dval['dia_mes_año'];
+
+ 																//get time slots for day  :  obtener franjas horarias para el dia
+ 																// time slots for day : horarios para el dia
+                                                                                        // dia_mes_año
+             								$time_slots = Bloquesdetiempo::GetTimeSlotsForDay($key, $dval['date'], $dval['week_day_num']);
+             								$slots = 0;
+             								echo '<td class="td_week_day'.(($days_count++ % 2 == 0) ? ' wd_colored' : ' wd_white').'">';
+                            foreach($time_slots as $ts_key => $ts_val)
+                            {
+  									              $doctor_address_id = (!empty($ts_val['doctor_address_id']) ? $ts_val['doctor_address_id'] : $doctor_def_address_id);
+  									              $param = base64_encode('docid='.$key.'&dspecid='.$speciality_id.'&schid='.$ts_val['schedule_id'].'&daddid='.$doctor_address_id.'&date='.$dval['date'].'&start_time='.$ts_val['time'].'&duration='.$ts_val['duration']);
+  		/*	OJO		*/				//$output_inner .= prepare_permanent_link('index.php?page=appointment_details&prm='.$param, $ts_val['time_view']).'<br>'."\n";
+
+                                  echo " <a  href='index.php?page=appointment_details&prm='.$param.'>".$ts_val['time_view']."</a> <br />  ";
+
+                									if($slots == 5)
+                                  {
+                										 echo  '<div class="hidden_slots'.$key.'" style="display:none;">';
+                									}
+                									$slots++;
+                						}
+
+                                            if($slots > 0) $non_empty_days++;
+                              if($slots > 6)
+                              {
+
+                                ?>
+
+                                 </div>
+
+                               <?php
+
+                                 echo '<a class="more_links'.$key.'" href="javascript:void(0)" onclick="appShowElement(\'.hidden_slots'.$key.'\');appHideElement(\'.more_links'.$key.'\');">'._MORE.'...</a>';
+                              }
+
+                                ?>
+                                </td>
+
+                              <?php
+                          }
+
+                              ?>
+
+                                <td class="go_next"></td>
+                            </tr>
+                          </table>
+                        <?php
+
+                           echo $o = ($non_empty_days == 0) ? self::FindNextAppointment($key, $first_day) : $u ="" ;
+                  }
+
+                 ?>
+                  </td>
+               </tr>  <!-- END SEGUNDA FILA DONE VAN LAS FOTOS DEL DOCTOR   ---->
+
+                <tr valign="top">   <!-- TERCER FILA  ---->
+                   <td colspan="3">
+                     <hr>
+                   </td>
+                </tr>
+
+              </table>
+
+
+              <?php
+
+
+  $output .= '<div class="paging">';
+  for($page_ind = 1; $page_ind <= $total_pages; $page_ind++){
+    $output .= '<a class="paging_link" href="javascript:void(\'page|'.$page_ind.'\');" onclick="javascript:appFormSubmit(\'frmFindDoctors\',\'page_number='.$page_ind.$docid_param.'\')">'.(($page_ind == $current_page) ? '<b>['.$page_ind.']</b>' : $page_ind).'</a> ';
+  }
+  $output .= '</div>';
+
 
              }//end foreach
 
@@ -335,6 +431,48 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
         ORDER BY ds.priority_order ASC';
     return database_query($sql, DATA_AND_ROWS);
   }
+
+
+  /**
+  	 * Find next appointment for given doctor
+  	 * 		@param $doc_id
+  	 * 		@param $date_from
+  	 */
+  	private static function FindNextAppointment($doc_id, $date_from = '')
+  	{
+
+       define("_NEXT_APPOINTMENT_AT","Next appointment at");
+
+          $msg = '';
+          $date_from = ($date_from != '') ? $date_from : date('Y-m-d');
+          $arr_weekdays_en = array('1'=>'Sunday','2'=>'Monday','3'=>'Tuesday','4'=>'Wednesday','5'=>'Thursday','6'=>'Friday','7'=>'Saturday');
+  		$arr_weekdays_loc = array('1'=>_SUNDAY, '2'=>_MONDAY, '3'=>_TUESDAY, '4'=>_WEDNESDAY, '5'=>_THURSDAY, '6'=>_FRIDAY, '7'=>_SATURDAY);
+
+          // check if there are schedules at all
+  		$sql = 'SELECT * FROM '.TABLE_SCHEDULES.' WHERE date_to >= \''.$date_from.'\' AND doctor_id = '.(int)$doc_id.' ORDER BY date_from ASC LIMIT 0, 1';
+          $result = database_query($sql, DATA_AND_ROWS, FIRST_ROW_ONLY);
+          if($result[1] > 0){
+              // check if there is schedule in the nearest 2 months
+              $datediff = round(time_diff($result[0]['date_from'], $date_from) / 86400);
+              if($datediff < 60){
+                  $sql = 'SELECT * FROM '.TABLE_SCHEDULE_TIMEBLOCKS.' WHERE schedule_id = '.(int)$result[0]['id'].' ORDER BY week_day ASC LIMIT 0, 1';
+                  $result_day = database_query($sql, DATA_AND_ROWS, FIRST_ROW_ONLY);
+                  if($result_day[1] > 0){
+                      $next_date = date('Y-m-d', strtotime('next '.$arr_weekdays_en[(int)$result_day[0]['week_day']], strtotime($result[0]['date_from'])));
+                      $msg = draw_message(_NEXT_APPOINTMENT_AT.' '.format_date($next_date, '', '', true).' ('.$arr_weekdays_loc[(int)$result_day[0]['week_day']].')', false);
+                  }else{
+                      echo "Next appointment at ".$result[0]['date_from'];
+                  }
+              }else{
+
+                   echo "Next appointment more than in 2 months";
+              }
+          }else{
+                  echo "No appointments available at this time";
+          }
+
+          return $msg;
+      }
 
 
 
