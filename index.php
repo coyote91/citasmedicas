@@ -1,8 +1,23 @@
 <?php
-include'./include/especialidadmedico.php';
-include'./include/busquedadoctores.php';
-include'./include/aplicacion.php';
-include'./include/direccionmedico.php';
+include'./include/Especialidadmedico.class.php';
+include'./include/Busquedadoctores.class.php';
+include'./include/Aplicacion.class.php';
+include'./include/Direccionmedico.class.php';
+include'./include/Bloquesdetiempo.class.php';
+include'./include/otrasfunciones.php';
+include'./include/funcioneshtml.php';
+
+define("_SUNDAY","Sunday");
+define("_MONDAY","Monday");
+define("_TUESDAY","Tuesday");
+define("_WEDNESDAY","Wednesday");
+define("_THURSDAY","Thursday");
+define("_FRIDAY","Friday");
+define("_SATURDAY","Saturday");
+define("TABLE_SCHEDULES", "schedules");
+define('TABLE_SCHEDULE_TIMEBLOCKS', 'schedule_timeblocks');
+define('TABLE_APPOINTMENTS', 'appointments');
+define('TABLE_TIMEOFFS', 'timeoffs');
 
 $doctor_speciality = isset($_POST['doctor_speciality']) ? $_POST['doctor_speciality'] : '';
 $doctor_name = isset($_POST['doctor_name']) ? $_POST['doctor_name'] : '';
@@ -31,9 +46,6 @@ echo $doctor_location;
 	<title>Document</title>
 
 <link rel="stylesheet" href="./css/style.css">
-
-<script src="./js/main.js" charset="utf-8"></script>
-
 
 
 </head>
@@ -167,6 +179,9 @@ echo $doctor_location;
 
 	</div>
 
+
+  <script src="./js/main.js" charset="utf-8"></script>
+  <script type="text/javascript" src="./js/jquery-1.6.3.min.js"></script>
 
 
 </body>

@@ -13,12 +13,12 @@ margin: 0px auto;
 
 #continfo
 {
-  
+
 
 display: flex;
 flex-wrap: nowrap;
 flex-direction: row;
-align-items: center;
+align-items: flex-start;
 justify-content: stretch;
 
 
@@ -37,11 +37,9 @@ background-color: red;
 #contderecho{
 
 width: 1101px;
-height:400px;
+min-height:400px;
+height: auto;
 background-color: green;
-
-
-
 
 }
 
@@ -58,47 +56,56 @@ justify-content: center;
 
 }
 
-.thleft{
 
-width: 160px;
-height: auto;
-background-color: red;
-
+TABLE.doctors_result TD.thleft {
+	width: 160px;
+  background-color:  cadetblue;
 }
 
-.thright{
- 
- width: 530px;
- background-color: cadetblue;
-
-
+TABLE.doctors_result TD.thright {
+	width: 520px;
+  background-color: aqua;
 }
 
-.go_prev
-{
-   width: 15px;
-   vertical-align: middle;
-   background-color: ;
-   
+
+
+TABLE.doctors_result .th_week_day {
+  width: 70px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  vertical-align: top;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
-.th_week_day{
- 
- width: 70px;
- border-bottom:1px solid #eee;
- text-align: center;
- vertical-align: top;
- padding-left: 2px;
- padding-right: 2px;
+.doctors_result .doctor_profile {
+	float: left;
+	padding-bottom: 20px;
+	width: 161px;
 }
 
-.wd_colored{
-
- background-color: #f9f4ed;
+TABLE.doctors_result .go_prev {
+	width: 15px;
+	text-align: right;
+	vertical-align: middle;
 }
 
-.wd_white{
- 
-     background-color: #fff;
- 
+.doctors_result TR TD {
+	padding: 1px;
+}
+
+
+TABLE.doctors_result .td_week_day {
+	width: 70px;
+	border-bottom: 1px solid #eee;
+	text-align: center;
+	vertical-align: top;
+}
+
+TABLE.doctors_result .wd_colored {
+	background-color: #f9f4ed;
+}
+
+TABLE.doctors_result .wd_white {
+	background-color: #fff;
 }

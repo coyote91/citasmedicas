@@ -17,3 +17,26 @@ function appFormSubmit(frm_name_id, vars){
 		document.getElementById(frm_name_id).submit();
 	}
 }
+
+
+/**
+ *   Show element
+ */
+function appShowElement(key){
+	if(key.indexOf('#') !=-1 || key.indexOf('.') !=-1){
+		jQuery(key).show('fast');
+	}else{
+		jQuery('#'+key).show('fast');
+	}
+}
+
+/**
+ *   Hide element
+ */
+function appHideElement(key){
+	if(key.indexOf('#') !=-1 || key.indexOf('.') !=-1){
+		jQuery(key).hide('fast');
+	}else{
+		jQuery('#'+key).hide('fast');
+	}
+}
