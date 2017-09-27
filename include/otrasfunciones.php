@@ -64,4 +64,37 @@ function get_date_format($format = 'view', $settings_format = false, $locale = f
 	return $date_format;
 }
 
+/**
+ * Get time format
+ * 		@param $show_seconds
+ * 		@param $settings_format
+ */
+function get_time_format($show_seconds = true, $settings_format = false)
+{
+	//global $objSettings;
+     $am_pm = 'am/pm';
+	if(/*$objSettings->GetParameter('time_format')*/ $am_pm == 'am/pm'){
+		if($settings_format) $time_format = 'am/pm';
+		else $time_format = ($show_seconds) ? 'g:i:s A' : 'g:i A';
+	}else{
+		if($settings_format) $time_format = '24';
+		else $time_format = ($show_seconds) ? 'H:i:s' : 'H:i';
+	}
+	return $time_format;
+}
+
+function get_weekday_local($wday)
+{
+	$weekdays = array(
+		'1' => _SUNDAY,
+		'2' => _MONDAY,
+		'3' => _TUESDAY,
+		'4' => _WEDNESDAY,
+		'5' => _THURSDAY,
+		'6' => _FRIDAY,
+		'7' => _SATURDAY
+	);
+	return isset($weekdays[(int)$wday]) ? $weekdays[(int)$wday] : '';
+}
+
 ?>

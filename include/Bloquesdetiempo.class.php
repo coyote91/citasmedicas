@@ -18,7 +18,7 @@ class Bloquesdetiempo
   		$result = array();
   		$minimum_time_slots = "2";  //ranuras de retardo  2
   		$today = date('Y-m-d');
-  		$time_format = 'H:i:s';
+  		$time_format =  get_time_format(false);  /* 'H:i:s'; */
 
   		// prepare real timeslots
   		$sql = 'SELECT
@@ -66,7 +66,13 @@ class Bloquesdetiempo
   				if($current_time < $actual_time){
   					continue;
   				}else if($current_time < $end_time){
-  					$result[] = array('date'=>$date, 'schedule_id'=>$schedile_id, 'doctor_address_id'=>$doctor_address_id, 'time_real'=>$current_time, 'time'=>$current_time_1, 'time_view'=>$current_time_2, 'duration'=>$time_slot);
+  					$result[] = array('date'=>$date,
+                              'schedule_id'=>$schedile_id,
+                               'doctor_address_id'=>$doctor_address_id,
+                               'time_real'=>$current_time,
+                               'time'=>$current_time_1,
+                               'time_view'=>$current_time_2,
+                                'duration'=>$time_slot);
   				}
   			}
   		}
@@ -137,7 +143,7 @@ class Bloquesdetiempo
   		}
 
   		return $result;
-  	}
+  	} //end function  GetTimeSlotsForDay
 
 }  /* END CLASS BLOQUES DE TIEMPO*/
 

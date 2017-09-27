@@ -56,6 +56,13 @@ justify-content: center;
 
 }
 
+TABLE{
+	/* font-family: Georgia, serif; */
+	font-size: 13px;
+	line-height: 1.5em;
+
+}
+
 
 TABLE.doctors_result TD.thleft {
 	width: 160px;
@@ -108,4 +115,9 @@ TABLE.doctors_result .wd_colored {
 
 TABLE.doctors_result .wd_white {
 	background-color: #fff;
+}
+
+.td_week_day a {
+
+ color: #333333;
 }

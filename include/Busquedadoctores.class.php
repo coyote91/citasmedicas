@@ -155,8 +155,13 @@ class Busquedadoctores
                                               'date'=>date('Y-m-d', $current_date),
                                               'dia' => strftime(" %A ", $current_date),
                                               'dia_mes_año' => strftime(" %b %d %Y ", $current_date),
-                                              'week_day_num'=>(date('w', $current_date)+1) // w	Representación numérica del día de la semana
+                                              'week_day_num'=>(date('w', $current_date)+1), // w	Representación numérica del día de la semana
                                                                                            // 0 (para domingo) hasta 6 (para sábado)
+
+                                             'date_view'=>format_date(date('Y-m-d', $current_date), '', '', true),
+                                             'week_day'=>get_weekday_local(date('w', $current_date)+1)
+
+
                                            );
 
 
@@ -331,7 +336,7 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
                          foreach($arr_dates as $dkey => $dval)
                          {
                                  if($first_day == '')
-                                   $first_day = $dval['dia_mes_año'];
+                                   $first_day = $dval['date'];     /* $dval['dia_mes_año']; */
 
  																//get time slots for day  :  obtener franjas horarias para el dia
  																// time slots for day : horarios para el dia
@@ -345,9 +350,12 @@ echo $output = '<a href="javascript:void(\'week|next\');" onclick="appFormSubmit
   									              $param = base64_encode('docid='.$key.'&dspecid='.$speciality_id.'&schid='.$ts_val['schedule_id'].'&daddid='.$doctor_address_id.'&date='.$dval['date'].'&start_time='.$ts_val['time'].'&duration='.$ts_val['duration']);
   		/*	OJO		*/				//$output_inner .= prepare_permanent_link('index.php?page=appointment_details&prm='.$param, $ts_val['time_view']).'<br>'."\n";
 
-                                  echo " <a  href='index.php?page=appointment_details&prm='.$param.'>".$ts_val['time_view']."</a> <br />  ";
+                                  //echo " <a  href='index.php?page=appointment_details&prm='.$param.'>".$ts_val['time_view']."</a> <br />  ";
+                             ?>
+                                  <a  href='index.php?page=appointment_details&prm=<?php echo $param ?>'> <?php echo $ts_val['time_view'] ?> </a>
 
-                									if($slots == 5)
+                            <?php
+                                	if($slots == 5)
                                   {
                 										 echo  '<div class="hidden_slots'.$key.'" style="display:none;">';
                 									}
